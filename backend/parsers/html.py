@@ -18,6 +18,15 @@ def get_html(url):
         return response.text
     else:
         return None
+        
+def create_temporary_file(content):
+    file_name = slugify(url) + ".html"    
+    temp_file_path = os.path.join(tempfile.gettempdir(), file_name)
+    
+    with open(temp_file_path, 'w') as temp_file:
+        temp_file.write(content)
+        
+    return temp_file_path, file_name
 
 def slugify(text):
     text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8')
