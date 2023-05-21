@@ -29,6 +29,9 @@ from crawl.crawler import CrawlWebsite
 
 from fastapi.middleware.cors import CORSMiddleware
 
+class URLUpload(BaseModel):
+    url: str
+
 @app.post("/upload-url")
 async def upload_url(url_upload: URLUpload):
     url = url_upload.url  
