@@ -29,6 +29,17 @@ from crawl.crawler import CrawlWebsite
 
 from fastapi.middleware.cors import CORSMiddleware
 
+@app.post("/upload-url")
+async def upload_url(url_upload: URLUpload):
+    url = url_upload.url  
+    content = get_html(url)
+    
+    temp_file_path, file_name = create_temporary_file(content)
+    
+    message = await process_html(vector_store, temp_file_path, file_name, stats_db=None)
+    
+    return message
+
 app = FastAPI()
 
 origins = [
